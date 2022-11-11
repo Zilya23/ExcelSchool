@@ -62,25 +62,31 @@ namespace ExcelTestForSchool
 
 				rowIndex++;
 			}
-			
+			rowIndex = 2;
 			Excel.Worksheet worksheet1 = application.Worksheets.Item[2];
 			foreach (var l in les)
             {
-				Student stud = students.Where(x => x.ID == l.IDStud).FirstOrDefault();
+				Student stud = l.Student;
 				worksheet1.Name = $"Посещаемость";
 				worksheet1.Columns.AutoFit();
 				worksheet1.Rows.AutoFit();
 				worksheet1.Cells[1][1] = "Фамилия";
 				worksheet1.Cells[2][1] = "Имя";
 				worksheet1.Cells[3][1] = "Отчечтво";
-				worksheet1.Cells[4][1] = "Количество посещенных уроков";
+				worksheet1.Cells[4][1] = "Название предмета";
+				worksheet1.Cells[5][1] = "Количество посещенных уроков";
 
-				worksheet1.Cells[1][rowIndex] = stud.LastName;
-				worksheet1.Cells[2][rowIndex] = stud.Name;
-				worksheet1.Cells[3][rowIndex] = stud.Patronic;
-				worksheet1.Cells[4][rowIndex] = l.Visited;
+                foreach (var lesson in l.Lessons.Keys)
+                {
+					worksheet1.Cells[1][rowIndex] = stud.LastName;
+					worksheet1.Cells[2][rowIndex] = stud.Name;
+					worksheet1.Cells[3][rowIndex] = stud.Patronic;
+					worksheet1.Cells[4][rowIndex] = lesson.Name;
+					worksheet1.Cells[5][rowIndex] = l.Lessons[lesson];
+					rowIndex++;
 
-				rowIndex++;
+                }
+
 			}
 			application.Visible = true;
 		}

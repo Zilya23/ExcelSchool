@@ -15,11 +15,12 @@ namespace ExcelTestForSchool
 			public int IdTeach { get; set;}
 			public int CountWork { get; set;}
 		}
+
+
 		public class GroupStat
         {
-			public int IDStud { get; set; }
-			public int IDLess { get; set; }
-			public int Visited { get; set; }
+			public Student Student { get; set; }
+			public Dictionary<Lesson, string> Lessons { get; set; }
 		}
 		public static  List<TeacherWork> TeacherWorkIsHard() 
 		{
@@ -45,32 +46,36 @@ namespace ExcelTestForSchool
 		public static List<GroupStat> VisitStat() 
 		{
 			var lessons = BdConnection.connection.Lesson.ToList();
-			var groupStat = BdConnection.connection.GroupStatistic.ToList();
-			var groupTime = BdConnection.connection.GroupTime.ToList();
 			var timetable = BdConnection.connection.TimeLesson.ToList();
-			var student = BdConnection.connection.Student.ToList();
+			var students = BdConnection.connection.Student.ToList();
 			List<GroupStat> groupStats = new List<GroupStat>();
 
-			foreach (var les in lessons)
-			{
-				int countLess = timetable.Where(x => x.IDLesson == les.ID).Count();
-				GroupStat group = new GroupStat();
-				group.IDLess = les.ID;
-				group.Visited = 0;
-				foreach (var gr in groupTime)
+            foreach (var student in students)
+            {
+				var groupStat = new GroupStat() { Student = student, Lessons = new Dictionary<Lesson, string>() };
+                foreach (var groupStatis in student.GroupStatistic)
                 {
-					
-					foreach (var stud in student)
+					var allLessons = 0;
+					var visitedLessons = 0;
+                    foreach (var groupTime in groupStatis.GroupTime)
                     {
-						group.IDStud = stud.ID;
-						if(les.ID == gr.GroupStatistic.IDLesson && stud.ID == gr.GroupStatistic.IDStudent && gr.IsVisited)
-                        {
-							group.Visited++;
-                        }
-					}
+						var lesson = groupTime.GroupStatistic.Lesson;
+
+						if (groupTime.IsVisited)
+							visitedLessons++;
+
+						if (!groupStat.Lessons.ContainsKey(lesson))
+						{
+							allLessons = 0;
+						}
+
+						allLessons++;
+						groupStat.Lessons[lesson] = $"{visitedLessons} из {allLessons}";
+
+                    }
 				}
-				groupStats.Add(group);
-			}
+				groupStats.Add(groupStat);
+            }
 			return groupStats;
 
 		}
