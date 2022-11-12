@@ -96,15 +96,9 @@ namespace ExcelTestForSchool
 					worksheet2.Rows.AutoFit();
 					worksheet2.Cells[1][1] = "Название";
 					worksheet2.Cells[2][1] = "Количество учеников";
-					//worksheet2.Cells[3][1] = "Отчечтво";
-					//worksheet2.Cells[4][1] = "Название предмета";
-					//worksheet2.Cells[5][1] = "Количество посещенных уроков";
 
 					worksheet2.Cells[1][rowIndex] = p.lesson1.Name;
 					worksheet2.Cells[2][rowIndex] = p.count + " из " + p.lesson1.CountChildren;
-					//worksheet2.Cells[3][rowIndex] = stud.Patronic;
-					//worksheet2.Cells[4][rowIndex] = lesson.Name;
-					//worksheet2.Cells[5][rowIndex] = l.Lessons[lesson];
 					rowIndex++;
 
 				}
