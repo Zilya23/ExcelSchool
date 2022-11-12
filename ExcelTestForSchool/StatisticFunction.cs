@@ -22,6 +22,11 @@ namespace ExcelTestForSchool
 			public Student Student { get; set; }
 			public Dictionary<Lesson, string> Lessons { get; set; }
 		}
+		public class PopularLesson
+		{
+			public Lesson lesson1 { get; set; }
+			public int count { get; set; }
+		}
 		public static  List<TeacherWork> TeacherWorkIsHard() 
 		{
 			var teachers = BdConnection.connection.Teacher.ToList();
@@ -77,8 +82,27 @@ namespace ExcelTestForSchool
 				groupStats.Add(groupStat);
             }
 			return groupStats;
-
 		}
-
+		public static List<PopularLesson> MostPopularLesson()
+		{
+			List<PopularLesson> popularLessons = new List<PopularLesson>();
+			var lessons = BdConnection.connection.Lesson.ToList();
+			var groupStat = BdConnection.connection.GroupStatistic.ToList();
+			foreach(var i in lessons)
+			{
+				PopularLesson popular = new PopularLesson();
+				popular.lesson1 = i;
+				popular.count = 0;
+				foreach(var g in groupStat)
+				{
+					if(g.IDLesson == i.ID)
+					{
+						popular.count++;
+					}
+				}
+				popularLessons.Add(popular);
+			}
+			return popularLessons;
+		}
 	}
 }

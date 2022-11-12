@@ -13,10 +13,10 @@ namespace ExcelTestForSchool.DataBase
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class School6Entities : DbContext
+    public partial class School6Entities1 : DbContext
     {
-        public School6Entities()
-            : base("name=School6Entities")
+        public School6Entities1()
+            : base("name=School6Entities1")
         {
         }
     

@@ -461,7 +461,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="School6Entities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="School6Entities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Education" EntityType="Self.Education" />
           <EntitySet Name="GroupStatistic" EntityType="Self.GroupStatistic" />
           <EntitySet Name="GroupTime" EntityType="Self.GroupTime" />
@@ -513,7 +513,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище School6ModelContainer" CdmEntityContainer="School6Entities">
+        <EntityContainerMapping StorageEntityContainer="Хранилище School6ModelContainer" CdmEntityContainer="School6Entities1">
           <EntitySetMapping Name="Education">
             <EntityTypeMapping TypeName="School6Model.Education">
               <MappingFragment StoreEntitySet="Education">

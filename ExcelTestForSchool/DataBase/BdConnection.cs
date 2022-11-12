@@ -8,6 +8,6 @@ namespace ExcelTestForSchool.DataBase
 {
 	public class BdConnection
 	{
-		public static School6Entities connection = new School6Entities();
+		public static School6Entities1 connection = new School6Entities1();
 	}
 }
